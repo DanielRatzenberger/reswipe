@@ -29,4 +29,4 @@ jobs:
     - name: Build
       run: yarn run build -m pwa
     - name: Deploy
-      run: git add dist && git commit -m "update gh-pages" && git subtree push --prefix dist/pwa origin gh-pages
+      run: git subtree push --prefix dist/pwa origin gh-pages
