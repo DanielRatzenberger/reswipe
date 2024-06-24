@@ -1,56 +1,106 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
+  <q-layout view="hHh lpr fFf">
+    <q-header height-hint="98">
+      <q-toolbar
+        class="text-indigo-3 text-weight-bold"
+        style="
+          background: rgb(255, 222, 223);
+          background: linear-gradient(
+            0deg,
+            rgba(255, 222, 223, 1) 0%,
+            rgba(255, 247, 216, 1) 100%
+          );
+        "
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+        >
+          <path
+            fill="none"
+            stroke="#546f9c"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9.231 30.234c4.746-1.353 9.124-1.447 12.631 1.441M9.231 27.256c4.746-1.353 9.124-1.448 12.631 1.44M9.231 24.357c4.746-1.353 9.124-1.448 12.631 1.44M9.231 21.243c4.746-1.353 9.124-1.448 12.631 1.44M9.231 18.206c4.746-1.352 9.124-1.447 12.631 1.441"
+          />
+          <path
+            fill="none"
+            stroke="#546f9c"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m5.5 9.647l.117 28.625c6.889-2.91 13.067-2.542 18.402 1.714c5.657-3.267 11.575-5.01 18.364-1.675L42.5 9.958c-5.727-2.244-11.963-3.367-18.48 1.285C18.854 7.395 12.035 7.268 5.5 9.647"
+          />
+          <path
+            fill="none"
+            stroke="#546f9c"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9.231 15.372c4.746-1.353 9.124-1.448 12.631 1.44m4.625 7.198c-.077 2.73 1.627 4.636 4.237 6.122l5.48-.657c3.441-2.47 3.41-4.841 3.303-7.21zm1.438-7.664l-1.477 4.07c1.735.102 3.566-.661 5.111 1.148l1.05-2.784c-2.432.204-3.472-1.396-4.684-2.434"
+          />
+        </svg>
+        <q-toolbar-title class="col text-left text-weight-bold">
+          ReSwipe
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Version: {{ $q.version }}</div>
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer style="height: 12%">
+      <q-tabs
+        style="height: 100%"
+        align="justify"
+        dense
+        class="bg-white text-black shadow-2"
+        :breakpoint="0"
+      >
+        <q-route-tab
+          to="/page1"
+          label="Swipen"
+          style="
+            width: 50%;
+            border-right: solid;
+            background: rgb(255, 222, 223);
+            background: linear-gradient(
+              0deg,
+              rgba(255, 222, 223, 1) 0%,
+              rgba(255, 247, 216, 1) 100%
+            );
+          "
+        />
+        <q-route-tab
+          to="/page2"
+          label="Favorisierte Rezepte"
+          style="
+            width: 50%;
+            text-wrap: wrap;
+            background: rgb(255, 222, 223);
+            background: linear-gradient(
+              0deg,
+              rgba(255, 222, 223, 1) 0%,
+              rgba(255, 247, 216, 1) 100%
+            );
+          "
+        />
+      </q-tabs>
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
+import EssentialLink, {
+  EssentialLinkProps,
+} from 'components/EssentialLink.vue';
 
 defineOptions({
-  name: 'MainLayout'
+  name: 'MainLayout',
 });
 
 const linksList: EssentialLinkProps[] = [
@@ -58,49 +108,43 @@ const linksList: EssentialLinkProps[] = [
     title: 'Docs',
     caption: 'quasar.dev',
     icon: 'school',
-    link: 'https://quasar.dev'
+    link: 'https://quasar.dev',
   },
   {
     title: 'Github',
     caption: 'github.com/quasarframework',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: 'https://github.com/quasarframework',
   },
   {
     title: 'Discord Chat Channel',
     caption: 'chat.quasar.dev',
     icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    link: 'https://chat.quasar.dev',
   },
   {
     title: 'Forum',
     caption: 'forum.quasar.dev',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    link: 'https://forum.quasar.dev',
   },
   {
     title: 'Twitter',
     caption: '@quasarframework',
     icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    link: 'https://twitter.quasar.dev',
   },
   {
     title: 'Facebook',
     caption: '@QuasarFramework',
     icon: 'public',
-    link: 'https://facebook.quasar.dev'
+    link: 'https://facebook.quasar.dev',
   },
   {
     title: 'Quasar Awesome',
     caption: 'Community Quasar projects',
     icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
+    link: 'https://awesome.quasar.dev',
+  },
 ];
-
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
 </script>

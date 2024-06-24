@@ -12,5 +12,25 @@
     "typescript",
     "vue"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#c80000",
+    "activityBar.background": "#c80000",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#00bf00",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#c80000",
+    "statusBar.background": "#950000",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#c80000",
+    "statusBarItem.remoteBackground": "#950000",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#950000",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#95000099",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "950000"
 }
