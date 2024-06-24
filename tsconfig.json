@@ -8,6 +8,7 @@
     "./.quasar",
     "./node_modules",
     "./src-capacitor",
+    "./src-pwa",
     "./src-cordova",
     "./quasar.config.*.temporary.compiled*"
   ]
