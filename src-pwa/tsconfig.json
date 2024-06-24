@@ -3,5 +3,5 @@
   "compilerOptions": {
     "lib": ["WebWorker", "ESNext"]
   },
-  "include": ["*.js", "*.ts", "*.d.ts"]
+  "include": ["*.ts", "*.d.ts"]
 }
