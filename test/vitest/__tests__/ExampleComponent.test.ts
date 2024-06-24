@@ -1,0 +1,21 @@
+import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest';
+import { mount } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
+import ExampleComponent from './demo/ExampleComponent.vue';
+
+installQuasarPlugin();
+
+describe('example Component', () => {
+
+  it('should mount component without todos', () => {
+    const wrapper = mount(ExampleComponent, {
+      props: {
+        title: 'Hello',
+        meta: {
+          totalCount: 4,
+        },
+      },
+    });
+    expect(wrapper.findAll('.q-item')).toHaveLength(0);
+  });
+});
