@@ -1,0 +1,43 @@
+name: 🧹 Lint
+run-name: Run linter for the app
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Linter
+        run: yarn run lint -o eslint-report.json -f json
+        continue-on-error: true
+
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@2.2.0
+        with:
+          report-json: 'packages/client/eslint-report.json'
+
+      - name: Check if autofixes available
+        run: |
+          git add --all
+          changes=$(git diff --cached --name-only)
+
+          if [ -n "$changes" ]; then
+            echo "Error: There are autofixes available. Run 'yarn lint:ts'. Make sure your dependencies are updated!"
+            exit 1
+          fi
