@@ -1,47 +1,47 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div class="q-pa-md q-gutter-sm fit column no-wrap items-center">
+
+    <q-img :src="url" spinner-color="white" style="height: 140px; max-width: 150px" @touchstart="touchStartMethod"
+      @touchEndMethod="touchEndMethod" />
+    <q-btn style="overflow: auto;" push color="teal" label="Change image" @click="refresh" />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
 
 defineOptions({
   name: 'IndexPage'
 });
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
+let url = ref('https://api.spoonacular.com/recipes/random?apiKey=04b5b9f8e44f43ad9feaf07a1a151852');
+async function refresh() {
+  const response = await axios.get('https://api.spoonacular.com/recipes/random?apiKey=04b5b9f8e44f43ad9feaf07a1a151852');
+  url.value = response.data.recipes[0].image;
+  console.log(response.data.recipes[0].image);
+}
 
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+function touchStartMethod(touchEvent) {
+  if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+    return;
+  }
+  const posXStart = touchEvent.changedTouches[0].clientX;
+  addEventListener('touchend', (touchEvent) => this.touchEnd(touchEvent, posXStart), { once: true });
+}
+function touchEndMethod(touchEvent, posXStart) {
+  if (touchEvent.changedTouches.length !== 1) { // We only care if one finger is used
+    return;
+  }
+  const posXEnd = touchEvent.changedTouches[0].clientX;
+  if (posXStart < posXEnd) {
+    this.previous(); // swipe right
+  } else if (posXStart > posXEnd) {
+    this.next(); // swipe left
+  }
+}
+
+onMounted(() => {
+  refresh();
+})
 </script>
