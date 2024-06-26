@@ -10,6 +10,10 @@ const routes: RouteRecordRaw[] = [
         path: '/SavedRecipe',
         component: () => import('pages/SavedRecipe.vue'),
       },
+      {
+        path: '/SwipeRecipe',
+        component: () => import('pages/SwipeRecipe.vue'),
+      },
     ],
   },
 

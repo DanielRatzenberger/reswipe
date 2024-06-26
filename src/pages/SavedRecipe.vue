@@ -1,11 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-dialog
-      v-model="basic"
-      transition-show="fade"
-      transition-hide="fade"
-      :maximized="true"
-    >
+    <q-dialog v-model="basic" transition-show="fade" transition-hide="fade">
       <q-card>
         <q-card-section>
           <q-card-actions align="right">
@@ -25,15 +20,11 @@
         <q-card-section class="q-pt-none">
           <q-img
             :src="currentRecipe?.recipe.image"
-            style="
-              width: 50%;
-              border-bottom-right-radius: 5%;
-              border-bottom-left-radius: 5%;
-            "
+            style="width: 50%; border-radius: 5%"
           ></q-img>
 
           <div>
-            <p style="font-size: larger">Benötigte Zutaten :</p>
+            <p style="font-size: larger">Ingredients :</p>
             <ul>
               <li
                 v-for="ingrediant in currentRecipe?.recipe.ingredients"
@@ -50,7 +41,7 @@
     </q-dialog>
 
     <q-card
-      v-for="recipe in recipes"
+      v-for="recipe in localArray"
       :key="recipe.recipe.label"
       style="height: 20vh; width: 80%; margin-top: 10%; cursor: pointer"
       v-on:click="openDialog(recipe)"
@@ -74,14 +65,14 @@
                 <q-separator />
               </div>
               <p>
-                Zubereitungszeit:
+                Prep-Time:
                 {{
                   recipe?.recipe.totalTime == 0
                     ? '/'
                     : recipe?.recipe.totalTime + ' min'
                 }}
               </p>
-              <p>Kategorie: {{ recipe?.recipe.dishType.toString() }}</p>
+              <p>category: {{ recipe?.recipe.dishType.toString() }}</p>
             </q-card-section>
           </q-card-section>
 
@@ -97,12 +88,12 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
-import axios from 'axios';
-import { Root, Hit } from 'components/models';
+import { ref } from 'vue';
+import { Hit } from 'components/models';
 
 const basic = ref(false);
 const currentRecipe = ref<Hit>();
+const localArray = JSON.parse(localStorage.getItem('recipes') || '[]') as Hit[];
 
 defineOptions({
   name: 'SavedRecipe',
@@ -112,18 +103,4 @@ function openDialog(recipe: Hit) {
   basic.value = true;
   currentRecipe.value = recipe;
 }
-
-onBeforeMount(() => {
-  getRecipe();
-});
-
-async function getRecipe() {
-  await axios
-    .get<Root>(
-      'https://api.edamam.com/api/recipes/v2?type=public&app_id=8050a305&app_key=ea8ea451634d29c60d1a7093bdb16a87&imageSize=REGULAR&random=true'
-    )
-    .then((response) => (recipes.value = response.data.hits));
-}
-
-const recipes = ref<Hit[]>([]);
 </script>
