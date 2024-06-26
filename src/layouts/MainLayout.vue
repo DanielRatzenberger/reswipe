@@ -61,8 +61,8 @@
         :breakpoint="0"
       >
         <q-route-tab
-          to="/"
-          label="Swipen"
+          to="/SwipeRecipe"
+          label="Swipe"
           style="
             width: 50%;
             border-right: solid;
@@ -76,7 +76,7 @@
         />
         <q-route-tab
           to="/SavedRecipe"
-          label="Favorisierte Rezepte"
+          label="Saved Recipes"
           style="
             width: 50%;
             text-wrap: wrap;
