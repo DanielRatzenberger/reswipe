@@ -6,7 +6,6 @@ import ExampleComponent from './demo/ExampleComponent.vue';
 installQuasarPlugin();
 
 describe('example Component', () => {
-
   it('should mount component without todos', () => {
     const wrapper = mount(ExampleComponent, {
       props: {

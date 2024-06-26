@@ -1,5 +1,8 @@
 <template>
-  <q-page class="row items-center justify-evenly" style="margin-bottom: 2rem; margin-top: 2rem">
+  <q-page
+    class="row items-center justify-evenly"
+    style="margin-bottom: 2rem; margin-top: 2rem"
+  >
     <q-dialog v-model="basic" transition-show="fade" transition-hide="fade">
       <q-card>
         <q-card-section>
@@ -43,7 +46,12 @@
     <q-card
       v-for="recipe in localArray"
       :key="recipe.recipe.label"
-      style="height: fit-content; width: 80%; margin-bottom: 20px; cursor: pointer"
+      style="
+        height: fit-content;
+        width: 80%;
+        margin-bottom: 20px;
+        cursor: pointer;
+      "
       v-on:click="openDialog(recipe)"
     >
       <q-card flat bordered>

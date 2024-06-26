@@ -32,8 +32,8 @@
 </template>
 
 <script setup lang="ts">
-import { LocalStorage, useQuasar } from 'quasar';
-import { computed, onBeforeMount, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { onBeforeMount, ref } from 'vue';
 import axios from 'axios';
 import { Root, Hit } from 'components/models';
 
@@ -55,7 +55,7 @@ async function getRecipe() {
     .then((response) => recipes.value.push(...response.data.hits));
 }
 
-function onLeft({ reset }: any) {
+function onLeft({ reset }: { reset: () => void }) {
   $q.notify('Added to favourites');
   console.log(recipes.value.length);
   if (recipes.value.length <= 3) {
@@ -74,7 +74,7 @@ function onLeft({ reset }: any) {
   finalize(reset);
 }
 
-function onRight({ reset }: any) {
+function onRight({ reset }: { reset: () => void }) {
   console.log(recipes.value.length);
   if (recipes.value.length <= 3) {
     getRecipe();
@@ -84,10 +84,9 @@ function onRight({ reset }: any) {
 }
 
 const $q = useQuasar();
-let timer;
 
 function finalize(reset: () => void) {
-  timer = setTimeout(() => {
+  setTimeout(() => {
     reset();
   }, 500);
 }
