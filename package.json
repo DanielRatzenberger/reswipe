@@ -6,13 +6,13 @@
   "author": "Daniel Ratzenberger <119323442+DanielRatzenberger@users.noreply.github.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
+    "lint": "eslint . --ext .js,.ts,.vue --fix ",
     "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
     "test:unit": "vitest",
-    "test:unit:ci": "vitest run"
+    "test:unit:ci": "tsc && vitest run"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
