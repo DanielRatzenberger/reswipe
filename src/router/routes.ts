@@ -4,9 +4,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-<<<<<<< Updated upstream
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
-=======
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       {
@@ -18,7 +15,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/TestPage.vue'),
       },
     ],
->>>>>>> Stashed changes
   },
 
   // Always leave this as last one,

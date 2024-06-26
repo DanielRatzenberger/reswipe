@@ -6,8 +6,6 @@ export interface Todo {
 export interface Meta {
   totalCount: number;
 }
-<<<<<<< Updated upstream
-=======
 
 export interface Root {
   from: number;
@@ -104,4 +102,3 @@ export interface TouchSwipeValue {
     | undefined;
   [x: string]: any;
 }
->>>>>>> Stashed changes
