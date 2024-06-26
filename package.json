@@ -12,7 +12,7 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "test:unit": "vitest",
-    "test:unit:ci": "vitest run"
+    "test:unit:ci": "tsc && vitest run"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
