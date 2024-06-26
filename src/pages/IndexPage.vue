@@ -1,4 +1,5 @@
 <template>
+
   <q-page class="row items-center justify-evenly">
     <example-component
       title="Example component"
