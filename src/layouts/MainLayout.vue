@@ -61,7 +61,7 @@
         :breakpoint="0"
       >
         <q-route-tab
-          to="/SwipeRecipe"
+          to="/"
           label="Swipe"
           style="
             width: 50%;

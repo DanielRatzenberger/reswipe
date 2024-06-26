@@ -5,14 +5,10 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '', component: () => import('pages/SwipeRecipe.vue') },
       {
         path: '/SavedRecipe',
         component: () => import('pages/SavedRecipe.vue'),
-      },
-      {
-        path: '/SwipeRecipe',
-        component: () => import('pages/SwipeRecipe.vue'),
       },
     ],
   },

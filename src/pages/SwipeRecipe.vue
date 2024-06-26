@@ -1,11 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-slide-item
-      @left="onLeft"
-      @right="onRight"
-      left-color="green-2"
-      right-color="red-2"
-    >
+    <q-slide-item @left="onLeft" @right="onRight" left-color="green-2" right-color="red-2">
       <template v-slot:left>
         <q-icon name="done" />
       </template>
@@ -13,17 +8,9 @@
         <q-icon name="cancel" />
       </template>
 
-      <q-card
-        flat
-        bordered
-        v-if="recipes[0]"
-        style="width: 500px; height: auto"
-      >
+      <q-card flat bordered v-if="recipes[0]" style="width: 500px; height: auto">
         <q-item>
-          <q-img
-            :src="recipes[0].recipe.image"
-            style="width: 80vh; height: auto"
-          >
+          <q-img :src="recipes[0].recipe.image" style="width: 80vh; height: auto">
           </q-img>
         </q-item>
       </q-card>
@@ -32,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { LocalStorage, useQuasar } from 'quasar';
-import { computed, onBeforeMount, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { onBeforeMount, ref } from 'vue';
 import axios from 'axios';
 import { Root, Hit } from 'components/models';
 
@@ -55,7 +42,7 @@ async function getRecipe() {
     .then((response) => recipes.value.push(...response.data.hits));
 }
 
-function onLeft({ reset }: any) {
+function onLeft({ reset }: { reset: () => void }) {
   $q.notify('Added to favourites');
   console.log(recipes.value.length);
   if (recipes.value.length <= 3) {
@@ -74,7 +61,7 @@ function onLeft({ reset }: any) {
   finalize(reset);
 }
 
-function onRight({ reset }: any) {
+function onRight({ reset }: { reset: () => void }) {
   console.log(recipes.value.length);
   if (recipes.value.length <= 3) {
     getRecipe();
@@ -84,10 +71,9 @@ function onRight({ reset }: any) {
 }
 
 const $q = useQuasar();
-let timer;
 
 function finalize(reset: () => void) {
-  timer = setTimeout(() => {
+  setTimeout(() => {
     reset();
   }, 500);
 }
