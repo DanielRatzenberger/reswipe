@@ -11,8 +11,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/SavedRecipe.vue'),
       },
       {
-        path: '/Test',
-        component: () => import('pages/TestPage.vue'),
+        path: '/SwipeRecipe',
+        component: () => import('pages/SwipeRecipe.vue'),
       },
     ],
   },
