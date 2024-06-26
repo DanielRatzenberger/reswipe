@@ -35,7 +35,10 @@
           <div>
             <p style="font-size: larger">Benötigte Zutaten :</p>
             <ul>
-              <li v-for="ingrediant in currentRecipe?.recipe.ingredients">
+              <li
+                v-for="ingrediant in currentRecipe?.recipe.ingredients"
+                :key="ingrediant.foodId"
+              >
                 {{ ingrediant.text }}
               </li>
             </ul>
