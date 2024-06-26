@@ -1,6 +1,11 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-slide-item @left="onLeft" @right="onRight" left-color="green-2" right-color="red-2">
+    <q-slide-item
+      @left="onLeft"
+      @right="onRight"
+      left-color="green-2"
+      right-color="red-2"
+    >
       <template v-slot:left>
         <q-icon name="done" />
       </template>
@@ -8,9 +13,17 @@
         <q-icon name="cancel" />
       </template>
 
-      <q-card flat bordered v-if="recipes[0]" style="width: 500px; height: auto">
+      <q-card
+        flat
+        bordered
+        v-if="recipes[0]"
+        style="width: 500px; height: auto"
+      >
         <q-item>
-          <q-img :src="recipes[0].recipe.image" style="width: 80vh; height: auto">
+          <q-img
+            :src="recipes[0].recipe.image"
+            style="width: 80vh; height: auto"
+          >
           </q-img>
         </q-item>
       </q-card>
