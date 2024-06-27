@@ -17,13 +17,26 @@
         flat
         bordered
         v-if="recipes[0]"
-        style="width: 500px; height: auto"
+        style="width: 500px; height: auto; max-width: 90vw"
       >
         <q-item>
           <q-img
             :src="recipes[0].recipe.image"
-            style="width: 80vh; height: auto"
+            style="width: 80vw; height: 65vh"
           >
+            <div class="absolute-bottom text-subtitle2 text-left">
+              {{ recipes[0].recipe.label }}
+              <q-separator />
+              <q-badge
+                v-for="tag in recipes[0].recipe.tags?.slice(0, 3)"
+                :label="tag"
+                :key="tag"
+                style="margin-right: 10px"
+                outline
+                color="amber-2"
+              >
+              </q-badge>
+            </div>
           </q-img>
         </q-item>
       </q-card>
