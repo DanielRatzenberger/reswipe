@@ -47,10 +47,13 @@ onBeforeMount(() => {
   getRecipe();
 });
 
+const app_id = import.meta.env.VITE_APP_ID;
+const app_key = import.meta.env.VITE_APP_KEY;
+
 async function getRecipe() {
   await axios
     .get<Root>(
-      'https://api.edamam.com/api/recipes/v2?type=public&app_id=8050a305&app_key=ea8ea451634d29c60d1a7093bdb16a87&imageSize=REGULAR&random=true'
+      `https://api.edamam.com/api/recipes/v2?type=public&app_id=${app_id}&app_key=${app_key}&imageSize=REGULAR&random=true`
     )
     .then((response) => {
       recipes.value.push(...response.data.hits);
