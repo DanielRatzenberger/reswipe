@@ -63,9 +63,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    env:
-      VITE_APP_KEY: ${{ secrets.VITE_APP_KEY }}
-      VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
