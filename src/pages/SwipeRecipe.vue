@@ -52,7 +52,13 @@ async function getRecipe() {
     .get<Root>(
       'https://api.edamam.com/api/recipes/v2?type=public&app_id=8050a305&app_key=ea8ea451634d29c60d1a7093bdb16a87&imageSize=REGULAR&random=true'
     )
-    .then((response) => recipes.value.push(...response.data.hits));
+    .then((response) => {
+      recipes.value.push(...response.data.hits);
+      recipes.value.forEach((recipe) => {
+        const img = new Image();
+        img.src = recipe.recipe.image;
+      });
+    });
 }
 
 function onLeft({ reset }: { reset: () => void }) {
