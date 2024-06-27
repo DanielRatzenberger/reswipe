@@ -89,7 +89,7 @@
           </q-card-section>
 
           <q-btn
-            style="margin-left: auto"
+            style="position: absolute; top: 0.25rem; right: 0.25rem;"
             flat
             round
             dense
