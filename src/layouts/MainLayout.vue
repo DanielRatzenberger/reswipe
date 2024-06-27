@@ -44,7 +44,7 @@
           ReSwipe
         </q-toolbar-title>
 
-        <div>Version: {{ $q.version }}</div>
+        <div>Version: 0.9.8</div>
       </q-toolbar>
     </q-header>
 

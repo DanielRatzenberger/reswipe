@@ -37,7 +37,9 @@
               </li>
             </ul>
 
-            <p>{{ currentRecipe?.recipe.url }}</p>
+            <a :href="currentRecipe?.recipe.url" target="_blank">{{
+              currentRecipe?.recipe.url
+            }}</a>
           </div>
         </q-card-section>
       </q-card>
@@ -58,10 +60,12 @@
         <div>
           <q-card-section horizontal>
             <q-img
+              class="img"
               :src="recipe?.recipe.image"
               style="
-                width: 35vh;
-                height: 35vh;
+                width: 80%;
+
+                height: auto;
                 border-top-left-radius: 5%;
                 border-bottom-left-radius: 5%;
               "
@@ -84,11 +88,16 @@
             </q-card-section>
           </q-card-section>
 
-          <!-- <div v-for="tag in recipe.recipe.tags" :key="tag">
-            <q-chip outline color="green" text-color="white" icon-right="star">
-              {{ tag }}
-            </q-chip>
-          </div> -->
+          <q-btn
+            style="margin-left: auto"
+            flat
+            round
+            dense
+            color="primary"
+            icon="close"
+            v-close-popup
+            v-on:click.stop="deleteRecipe(recipe)"
+          />
         </div>
       </q-card>
     </q-card>
@@ -101,14 +110,36 @@ import { Hit } from 'components/models';
 
 const basic = ref(false);
 const currentRecipe = ref<Hit>();
-const localArray = JSON.parse(localStorage.getItem('recipes') || '[]') as Hit[];
+const localArray = ref(
+  JSON.parse(localStorage.getItem('recipes') || '[]') as Hit[]
+);
 
 defineOptions({
   name: 'SavedRecipe',
 });
+
+function deleteRecipe(recipe: Hit) {
+  const index = localArray.value.indexOf(recipe);
+  localArray.value.splice(index, 1);
+  localStorage.setItem('recipes', JSON.stringify(localArray.value));
+}
 
 function openDialog(recipe: Hit) {
   basic.value = true;
   currentRecipe.value = recipe;
 }
 </script>
+
+<style scoped>
+.img {
+  min-width: 120px;
+  max-width: 120px;
+}
+
+@media screen and (min-width: 600px) {
+  .img {
+    max-width: 35vh;
+    height: 35vh;
+  }
+}
+</style>
