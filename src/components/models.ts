@@ -3,7 +3,7 @@ export interface Root {
 }
 
 export interface Hit {
-  data: Model;
+  recipe: Model;
 }
 
 export interface Model {

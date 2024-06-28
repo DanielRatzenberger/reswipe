@@ -21,14 +21,14 @@
       >
         <q-item>
           <q-img
-            :src="list[0].data.image"
+            :src="list[0].recipe.image"
             style="width: 80vw; height: 65vh"
           >
             <div class="absolute-bottom text-subtitle2 text-left">
-              {{ list[0].data.label }}
+              {{ list[0].recipe.label }}
               <q-separator />
               <q-badge
-                v-for="tag in list[0].data.tags?.slice(0, 3)"
+                v-for="tag in list[0].recipe.tags?.slice(0, 3)"
                 :label="tag"
                 :key="tag"
                 style="margin-right: 10px"
@@ -53,14 +53,14 @@ import { Root, Hit } from 'components/models';
 const list = ref<Hit[]>([]);
 
 defineOptions({
-  name: 'SwipeRecipe',
+  name: 'PageTwo',
 });
 
 onBeforeMount(() => {
-  getRecipe();
+  getList();
 });
 
-async function getRecipe() {
+async function getList() {
   await axios
     .get<Root>(
       'https://api.edamam.com/api/recipes/v2?type=public&app_id=8050a305&app_key=ea8ea451634d29c60d1a7093bdb16a87&imageSize=REGULAR&random=true'
@@ -69,7 +69,7 @@ async function getRecipe() {
       list.value.push(...response.data.hits);
       list.value.forEach((a) => {
         const img = new Image();
-        img.src = a.data.image;
+        img.src = a.recipe.image;
       });
     });
 }
@@ -78,15 +78,15 @@ function onLeft({ reset }: { reset: () => void }) {
   $q.notify('Added to favourites');
   console.log(list.value.length);
   if (list.value.length <= 3) {
-    getRecipe();
+    getList();
   }
 
   const savedData: Hit[] = JSON.parse(
     localStorage.getItem('list') || '[]'
   );
-  const shiftedRecipe: Hit | undefined = list.value.shift();
-  if (shiftedRecipe) {
-    savedData.unshift(shiftedRecipe);
+  const shiftedElement: Hit | undefined = list.value.shift();
+  if (shiftedElement) {
+    savedData.unshift(shiftedElement);
     localStorage.setItem('list', JSON.stringify(savedData));
   }
 
@@ -95,7 +95,7 @@ function onLeft({ reset }: { reset: () => void }) {
 
 function onRight({ reset }: { reset: () => void }) {
   if (list.value.length <= 3) {
-    getRecipe();
+    getList();
   }
   list.value.shift();
   finalize(reset);

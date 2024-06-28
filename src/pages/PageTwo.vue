@@ -16,13 +16,13 @@
               v-close-popup
             />
           </q-card-actions>
-          <div class="text-h6">{{ currentElement?.data.label }}</div>
+          <div class="text-h6">{{ currentElement?.recipe.label }}</div>
           <q-separator />
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-img
-            :src="currentElement?.data.image"
+            :src="currentElement?.recipe.image"
             style="width: 50%; border-radius: 5%"
           ></q-img>
 
@@ -30,15 +30,15 @@
             <p style="font-size: larger">Ingredients :</p>
             <ul>
               <li
-                v-for="ingrediant in currentElement?.data.ingredients"
-                :key="ingrediant.foodId"
+                v-for="element in currentElement?.recipe.ingredients"
+                :key="element.foodId"
               >
-                {{ ingrediant.text }}
+                {{ element.text }}
               </li>
             </ul>
 
-            <a :href="currentElement?.data.url" target="_blank">{{
-              currentElement?.data.url
+            <a :href="currentElement?.recipe.url" target="_blank">{{
+              currentElement?.recipe.url
             }}</a>
           </div>
         </q-card-section>
@@ -47,7 +47,7 @@
 
     <q-card
       v-for="element in localArray"
-      :key="element.data.label"
+      :key="element.recipe.label"
       style="
         height: fit-content;
         width: 80%;
@@ -61,7 +61,7 @@
           <q-card-section horizontal>
             <q-img
               class="img"
-              :src="element?.data.image"
+              :src="element?.recipe.image"
               style="
                 width: 80%;
 
@@ -73,18 +73,18 @@
 
             <q-card-section style="display: grid">
               <div>
-                <p>{{ element?.data.label }}</p>
+                <p>{{ element?.recipe.label }}</p>
                 <q-separator />
               </div>
               <p>
                 Prep-Time:
                 {{
-                  element?.data.totalTime == 0
+                  element?.recipe.totalTime == 0
                     ? '/'
-                    : element?.data.totalTime + ' min'
+                    : element?.recipe.totalTime + ' min'
                 }}
               </p>
-              <p>category: {{ element?.data.dishType.toString() }}</p>
+              <p>category: {{ element?.recipe.dishType.toString() }}</p>
             </q-card-section>
           </q-card-section>
 
@@ -96,7 +96,7 @@
             color="primary"
             icon="close"
             v-close-popup
-            v-on:click.stop="deleteRecipe(element)"
+            v-on:click.stop="deleteElement(element)"
           />
         </div>
       </q-card>
@@ -111,22 +111,22 @@ import { Hit } from 'components/models';
 const basic = ref(false);
 const currentElement = ref<Hit>();
 const localArray = ref(
-  JSON.parse(localStorage.getItem('recipes') || '[]') as Hit[]
+  JSON.parse(localStorage.getItem('list') || '[]') as Hit[]
 );
 
 defineOptions({
-  name: 'SavedRecipe',
+  name: 'PageTwo',
 });
 
-function deleteRecipe(recipe: Hit) {
-  const index = localArray.value.indexOf(recipe);
+function deleteElement(element: Hit) {
+  const index = localArray.value.indexOf(element);
   localArray.value.splice(index, 1);
-  localStorage.setItem('recipes', JSON.stringify(localArray.value));
+  localStorage.setItem('list', JSON.stringify(localArray.value));
 }
 
-function openDialog(recipe: Hit) {
+function openDialog(element: Hit) {
   basic.value = true;
-  currentElement.value = recipe;
+  currentElement.value = element;
 }
 </script>
 
