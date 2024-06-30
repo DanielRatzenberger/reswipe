@@ -16,19 +16,19 @@
       <q-card
         flat
         bordered
-        v-if="recipes[0]"
+        v-if="list[0]"
         style="width: 500px; height: auto; max-width: 90vw"
       >
         <q-item>
           <q-img
-            :src="recipes[0].recipe.image"
+            :src="list[0].recipe.image"
             style="width: 80vw; height: 65vh"
           >
             <div class="absolute-bottom text-subtitle2 text-left">
-              {{ recipes[0].recipe.label }}
+              {{ list[0].recipe.label }}
               <q-separator />
               <q-badge
-                v-for="tag in recipes[0].recipe.tags?.slice(0, 3)"
+                v-for="tag in list[0].recipe.tags?.slice(0, 3)"
                 :label="tag"
                 :key="tag"
                 style="margin-right: 10px"
@@ -50,55 +50,54 @@ import { onBeforeMount, ref } from 'vue';
 import axios from 'axios';
 import { Root, Hit } from 'components/models';
 
-const recipes = ref<Hit[]>([]);
+const list = ref<Hit[]>([]);
 
 defineOptions({
-  name: 'SwipeRecipe',
+  name: 'PageTwo',
 });
 
 onBeforeMount(() => {
-  getRecipe();
+  getList();
 });
 
-async function getRecipe() {
+async function getList() {
   await axios
     .get<Root>(
       'https://api.edamam.com/api/recipes/v2?type=public&app_id=8050a305&app_key=ea8ea451634d29c60d1a7093bdb16a87&imageSize=REGULAR&random=true'
     )
     .then((response) => {
-      recipes.value.push(...response.data.hits);
-      recipes.value.forEach((recipe) => {
+      list.value.push(...response.data.hits);
+      list.value.forEach((a) => {
         const img = new Image();
-        img.src = recipe.recipe.image;
+        img.src = a.recipe.image;
       });
     });
 }
 
 function onLeft({ reset }: { reset: () => void }) {
   $q.notify('Added to favourites');
-  console.log(recipes.value.length);
-  if (recipes.value.length <= 3) {
-    getRecipe();
+  console.log(list.value.length);
+  if (list.value.length <= 3) {
+    getList();
   }
 
-  const savedRecipes: Hit[] = JSON.parse(
-    localStorage.getItem('recipes') || '[]'
+  const savedData: Hit[] = JSON.parse(
+    localStorage.getItem('list') || '[]'
   );
-  const shiftedRecipe: Hit | undefined = recipes.value.shift();
-  if (shiftedRecipe) {
-    savedRecipes.unshift(shiftedRecipe);
-    localStorage.setItem('recipes', JSON.stringify(savedRecipes));
+  const shiftedElement: Hit | undefined = list.value.shift();
+  if (shiftedElement) {
+    savedData.unshift(shiftedElement);
+    localStorage.setItem('list', JSON.stringify(savedData));
   }
 
   finalize(reset);
 }
 
 function onRight({ reset }: { reset: () => void }) {
-  console.log(recipes.value.length);
-  if (recipes.value.length <= 3) {
-    getRecipe();
+  if (list.value.length <= 3) {
+    getList();
   }
-  recipes.value.shift();
+  list.value.shift();
   finalize(reset);
 }
 

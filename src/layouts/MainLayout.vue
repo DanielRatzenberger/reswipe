@@ -41,7 +41,7 @@
           />
         </svg>
         <q-toolbar-title class="col text-left text-weight-bold">
-          ReSwipe
+          App
         </q-toolbar-title>
 
         <div>Version: 0.9.8</div>
@@ -62,7 +62,7 @@
       >
         <q-route-tab
           to="/"
-          label="Swipe"
+          label="Page 1"
           style="
             width: 50%;
             border-right: solid;
@@ -75,8 +75,8 @@
           "
         />
         <q-route-tab
-          to="/SavedRecipe"
-          label="Saved Recipes"
+          to="/page2"
+          label="Page 2"
           style="
             width: 50%;
             text-wrap: wrap;

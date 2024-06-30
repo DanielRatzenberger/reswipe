@@ -1,40 +1,24 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
-
-export interface Meta {
-  totalCount: number;
-}
-
 export interface Root {
-  from: number;
-  to: number;
-  count: number;
   hits: Hit[];
 }
 
 export interface Hit {
-  recipe: Recipe;
+  recipe: Model;
 }
 
-export interface Recipe {
+export interface Model {
   uri: string;
   label: string;
   image: string;
-  images: Images;
   source: string;
   url: string;
-  shareAs: string;
   yield: number;
   dietLabels: string[];
   healthLabels: string[];
   cautions: string[];
   ingredientLines: string[];
-  ingredients: Ingredient[];
+  ingredients: Model2[];
   calories: number;
-  totalCO2Emissions: number;
-  co2EmissionsClass?: string;
   totalWeight: number;
   totalTime: number;
   cuisineType: string[];
@@ -43,38 +27,8 @@ export interface Recipe {
   tags?: string[];
 }
 
-export interface Images {
-  THUMBNAIL: Thumbnail;
-  SMALL: Small;
-  REGULAR: Regular;
-  LARGE?: Large;
-}
 
-export interface Thumbnail {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Small {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Regular {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Large {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Ingredient {
+export interface Model2 {
   text: string;
   quantity: number;
   measure?: string;
@@ -84,6 +38,3 @@ export interface Ingredient {
   foodId: string;
 }
 
-export interface RecipeDto {
-  hits: Recipe[];
-}
